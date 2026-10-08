@@ -21,7 +21,9 @@ export async function POST(req: NextRequest, { params }: Params) {
     const item = await Homework.findById(id)
     if (!item) return NextResponse.json({ message: "Not found" }, { status: 404 })
     
-    const existingIndex = item.submissions?.findIndex(sub => sub.studentId === studentId) ?? -1
+    const existingIndex = item.submissions?.findIndex(
+      (sub: { studentId: string }) => sub.studentId === studentId
+    ) ?? -1
     const submission = {
       studentId,
       studentName,
